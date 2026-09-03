@@ -3,15 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="AxZ Tecnologia oferece consultoria de IA e automação para empresas. Ajudamos a entender problemas, desenhar soluções e construir sistemas com inteligência artificial.">
-<meta property="og:image" content="logo.png">
-<meta property="og:image:secure_url" content="logo.png">
+<title>AxZ Tecnologia | IA e Automação para empresas</title>
+<meta name="description" content="Três formas de trabalhar com IA e automação na sua empresa: construção com escopo fechado, consultoria de oportunidades com execução, e direção técnica fracionada.">
+<link rel="canonical" href="https://axz.technology/">
+<meta name="theme-color" content="#12172B">
+<link rel="icon" href="logo_compact.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://axz.technology/">
+<meta property="og:site_name" content="AxZ Tecnologia">
+<meta property="og:title" content="AxZ Tecnologia | IA e Automação para empresas">
+<meta property="og:description" content="Do problema ao protótipo em dias. Construção com escopo fechado, consultoria de oportunidades, ou direção técnica fracionada.">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:image" content="https://axz.technology/logo.png">
+<meta property="og:image:secure_url" content="https://axz.technology/logo.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<title>AxZ Tecnologia | IA e Automação para empresas</title>
+<script>try{if(localStorage.getItem('axz-lang')==='en')document.documentElement.lang='en';}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -21,6 +33,7 @@
     --paper-dim: #F1EEE5;
     --amber: #FF8A1E;
     --amber-soft: #FFE4C2;
+    --amber-deep: #8A4A05;
     --slate: #5B6172;
     --green: #1E9E6B;
     --line: rgba(18,23,43,0.10);
@@ -52,15 +65,25 @@
 
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 
-  /* ---------- lang toggle data ---------- */
-  html:not([lang="en"]) [data-en] { display: none !important; }
+  /* ---------- language toggle ----------
+     Only ever HIDE the inactive language. Never set `display` on the visible
+     one, or it clobbers the element's own layout (block, flex, grid). */
   html[lang="en"] [data-pt] { display: none !important; }
-  html:not([lang="en"]) [data-pt] { display: inline; }
-  html[lang="en"] [data-en] { display: inline; }
-  html:not([lang="en"]) [data-pt-block] { display: block; }
-  html[lang="en"] [data-pt-block] { display: none !important; }
-  html:not([lang="en"]) [data-en-block] { display: none !important; }
-  html[lang="en"] [data-en-block] { display: block; }
+  html:not([lang="en"]) [data-en] { display: none !important; }
+
+  /* ---------- icons ---------- */
+  .ic {
+    width: 20px; height: 20px; flex: none;
+    fill: none; stroke: currentColor; stroke-width: 1.6;
+    stroke-linecap: round; stroke-linejoin: round;
+  }
+  .ic-sm { width: 15px; height: 15px; stroke-width: 1.9; }
+  .ic-badge {
+    width: 46px; height: 46px; border-radius: 12px; flex: none;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--amber-soft); color: var(--amber-deep);
+  }
+  .ic-badge .ic { width: 24px; height: 24px; }
 
   /* ---------- top bar ---------- */
   .topbar {
@@ -71,14 +94,18 @@
   }
   .topbar-inner {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 0;
+    gap: 20px; padding: 14px 0;
   }
-  .logo {
-    display: block; width: auto; height: 48px; max-width: 180px;
-    object-fit: contain;
+  .logo { display: block; width: auto; height: 44px; max-width: 170px; object-fit: contain; }
+  .topbar-actions { display: flex; align-items: center; gap: 12px; }
+
+  .topnav { display: flex; gap: 22px; margin-left: auto; margin-right: 6px; }
+  .topnav a {
+    text-decoration: none; font-size: 0.88rem; font-weight: 500; color: var(--slate);
+    padding: 4px 0; border-bottom: 1.5px solid transparent;
   }
-  .logo span { color: var(--amber); }
-  .topbar-actions { display: flex; align-items: center; gap: 14px; }
+  .topnav a:hover { color: var(--ink); border-bottom-color: var(--amber); }
+  @media (max-width: 900px) { .topnav { display: none; } }
 
   .lang-switch {
     display: flex; border: 1px solid var(--line); border-radius: 999px;
@@ -93,33 +120,26 @@
   .btn-wa {
     display: inline-flex; align-items: center; gap: 8px;
     background: var(--ink); color: var(--paper);
-    padding: 10px 18px; border-radius: 999px; text-decoration: none;
+    padding: 11px 18px; border-radius: 999px; text-decoration: none;
     font-weight: 600; font-size: 0.88rem; border: none;
-    transition: transform 0.15s ease, background 0.15s ease;
+    transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
     white-space: nowrap;
   }
-  .btn-wa:hover { background: var(--amber); transform: translateY(-1px); }
+  .btn-wa:hover { background: var(--amber); color: var(--ink); transform: translateY(-1px); }
   .btn-wa svg { width: 16px; height: 16px; flex-shrink: 0; }
-  .btn-wa.ghost {
-    background: transparent; color: var(--ink); border: 1.5px solid var(--ink);
-  }
+  .btn-wa.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
   .btn-wa.ghost:hover { background: var(--ink); color: var(--paper); }
+  .btn-wa.sm { padding: 9px 15px; font-size: 0.83rem; }
 
-  @media (max-width: 720px) {
-    .btn-wa span.full { display: none; }
-  }
+  @media (max-width: 720px) { .btn-wa span.full { display: none; } }
 
   /* ---------- hero ---------- */
-  .hero {
-    padding: 88px 0 72px;
-    position: relative;
-    overflow: hidden;
-  }
+  .hero { padding: 80px 0 8px; position: relative; overflow: hidden; }
   .eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
     font-family: var(--mono); font-size: 0.76rem; letter-spacing: 0.04em;
     color: var(--slate); background: var(--paper-dim);
-    padding: 6px 12px; border-radius: 999px; margin-bottom: 28px;
+    padding: 6px 12px; border-radius: 999px; margin-bottom: 26px;
     border: 1px solid var(--line);
   }
   .eyebrow .dot {
@@ -137,84 +157,38 @@
     font-family: var(--disp); font-weight: 700;
     font-size: clamp(2.1rem, 5vw, 3.4rem);
     line-height: 1.08; letter-spacing: -0.02em;
-    margin: 0 0 22px;
-    max-width: 17ch;
+    margin: 0 0 22px; max-width: 17ch;
   }
-  .hero h1 em {
-    font-style: normal; color: var(--amber);
-  }
-  .hero .lede {
-    font-size: 1.15rem; color: var(--slate); max-width: 52ch; line-height: 1.55;
-    margin: 0 0 36px;
-  }
+  .hero h1 em { font-style: normal; color: var(--amber); }
+  .hero .lede { font-size: 1.15rem; color: var(--slate); max-width: 56ch; line-height: 1.55; margin: 0 0 32px; }
   .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-  .hero-note {
-    margin-top: 18px; font-size: 0.85rem; color: var(--slate);
-    display: flex; align-items: center; gap: 8px;
-  }
 
-  /* ---------- signature build panel ---------- */
-  .build-panel {
-    margin: 72px 0 88px;
-    background: var(--ink);
-    color: var(--paper);
-    border-radius: 20px;
-    padding: 0;
-    display: grid;
-    grid-template-columns: 1.1fr 1fr;
-    overflow: hidden;
-    position: relative;
+  /* ---------- three doors ---------- */
+  .doors {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    margin: 44px 0 0;
   }
-  @media (max-width: 860px) {
-    .build-panel { grid-template-columns: 1fr; }
+  @media (max-width: 780px) { .doors { grid-template-columns: 1fr; } }
+  .door {
+    display: flex; align-items: flex-start; gap: 13px;
+    padding: 18px 18px; border: 1px solid var(--line); border-radius: var(--radius);
+    background: #fff; text-decoration: none;
+    transition: border-color 0.15s ease, transform 0.15s ease;
   }
-  .build-copy { padding: 44px 40px; }
-  .build-tag {
-    font-family: var(--mono); font-size: 0.74rem; color: var(--amber);
-    letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 14px; display: block;
+  .door:hover { border-color: var(--amber); transform: translateY(-2px); }
+  .door .ic { color: var(--amber-deep); margin-top: 2px; }
+  .door-q { display: block; font-size: 0.94rem; line-height: 1.45; margin: 0 0 5px; font-weight: 500; }
+  .door-a {
+    display: block; font-family: var(--mono); font-size: 0.73rem; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--slate); margin: 0;
   }
-  .build-copy h2 {
-    font-family: var(--disp); font-size: 1.9rem; line-height: 1.15;
-    margin: 0 0 16px; letter-spacing: -0.01em;
-  }
-  .build-copy p { color: rgba(251,249,244,0.72); line-height: 1.6; margin: 0 0 26px; font-size: 1rem; }
-
-  .build-console {
-    background: var(--ink-soft);
-    padding: 32px;
-    border-left: 1px solid var(--line-dark);
-    font-family: var(--mono);
-    font-size: 0.86rem;
-    display: flex; flex-direction: column; justify-content: center;
-  }
-  @media (max-width: 860px) {
-    .build-console { border-left: none; border-top: 1px solid var(--line-dark); }
-  }
-  .console-line {
-    display: flex; align-items: center; gap: 10px;
-    padding: 9px 0; color: rgba(251,249,244,0.45);
-    border-bottom: 1px solid var(--line-dark);
-  }
-  .console-line:last-child { border-bottom: none; }
-  .console-line .mark {
-    width: 16px; height: 16px; border-radius: 5px; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 0.65rem; border: 1.5px solid rgba(251,249,244,0.25);
-  }
-  .console-line.done { color: var(--paper); }
-  .console-line.done .mark { background: var(--green); border-color: var(--green); color: var(--ink); }
-  .console-line.active { color: var(--amber); }
-  .console-line.active .mark { border-color: var(--amber); }
-  .console-line.active .mark span { animation: blink 1s infinite; }
-  @keyframes blink { 50% { opacity: 0.2; } }
-  .console-meta { margin-top: 18px; font-size: 0.76rem; color: rgba(251,249,244,0.4); }
 
   /* ---------- section heads ---------- */
-  .section { padding: 68px 0; border-top: 1px solid var(--line); }
-  .section-head { max-width: 62ch; margin-bottom: 42px; }
+  .section { padding: 72px 0; border-top: 1px solid var(--line); scroll-margin-top: 84px; }
+  .section-head { max-width: 62ch; margin-bottom: 40px; }
   .section-eyebrow {
-    font-family: var(--mono); font-size: 0.74rem; color: var(--amber);
-    text-transform: uppercase; letter-spacing: 0.06em; display: block; margin-bottom: 10px;
+    display: block; font-family: var(--mono); font-size: 0.74rem; color: var(--amber-deep);
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 10px;
   }
   .section-head h2 {
     font-family: var(--disp); font-size: clamp(1.5rem, 3vw, 2rem);
@@ -222,44 +196,176 @@
   }
   .section-head p { color: var(--slate); line-height: 1.6; margin: 0; font-size: 1.02rem; }
 
-  /* ---------- support services list ---------- */
-  .service-list { display: flex; flex-direction: column; }
-  .service-row {
-    display: grid; grid-template-columns: 220px 1fr; gap: 28px;
-    padding: 26px 0; border-top: 1px solid var(--line);
+  /* ---------- service blocks ---------- */
+  .svc-list { display: flex; flex-direction: column; gap: 26px; }
+  .svc {
+    border: 1px solid var(--line); border-radius: 18px; background: #fff;
+    overflow: hidden; scroll-margin-top: 90px;
   }
-  .service-row:last-child { border-bottom: 1px solid var(--line); }
-  @media (max-width: 680px) {
-    .service-row { grid-template-columns: 1fr; gap: 8px; }
+  .svc-head {
+    display: flex; align-items: flex-start; gap: 18px;
+    padding: 30px 32px 24px; border-bottom: 1px solid var(--line);
   }
-  .service-row h3 {
-    font-family: var(--disp); font-size: 1.05rem; margin: 0; letter-spacing: -0.005em;
+  @media (max-width: 620px) { .svc-head { padding: 24px 20px 20px; gap: 14px; } }
+  .svc-num {
+    font-family: var(--mono); font-size: 0.74rem; color: var(--slate);
+    letter-spacing: 0.06em; display: block; margin-bottom: 8px;
   }
-  .service-row .bullets {
-    color: var(--slate); font-size: 0.95rem; line-height: 1.7;
+  .svc-head h3 { font-family: var(--disp); font-size: 1.45rem; margin: 0 0 10px; letter-spacing: -0.01em; line-height: 1.2; }
+  .svc-q {
+    font-size: 1.02rem; color: var(--ink); margin: 0 0 10px; line-height: 1.5;
+    padding-left: 14px; border-left: 3px solid var(--amber); font-style: italic;
   }
-  .service-row .bullets b { color: var(--ink); font-weight: 600; }
+  .svc-sub { color: var(--slate); font-size: 0.96rem; line-height: 1.6; margin: 0; max-width: 62ch; }
+
+  .svc-body {
+    display: grid; grid-template-columns: 1.25fr 1fr; gap: 0;
+  }
+  @media (max-width: 820px) { .svc-body { grid-template-columns: 1fr; } }
+  .svc-col { padding: 28px 32px 30px; }
+  @media (max-width: 620px) { .svc-col { padding: 24px 20px; } }
+  .svc-col + .svc-col { border-left: 1px solid var(--line); background: var(--paper); }
+  @media (max-width: 820px) { .svc-col + .svc-col { border-left: none; border-top: 1px solid var(--line); } }
+  .col-title {
+    font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--slate); margin: 0 0 18px; display: block;
+  }
+
+  ol.how { list-style: none; margin: 0; padding: 0; counter-reset: how; }
+  ol.how li {
+    counter-increment: how; position: relative; padding: 0 0 18px 38px;
+    font-size: 0.95rem; line-height: 1.6; color: var(--slate);
+  }
+  ol.how li::before {
+    content: counter(how); position: absolute; left: 0; top: -1px;
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--ink); color: var(--paper);
+    font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+    display: flex; align-items: center; justify-content: center;
+  }
+  ol.how li::after {
+    content: ""; position: absolute; left: 11.5px; top: 27px; bottom: 4px;
+    width: 1px; background: var(--line);
+  }
+  ol.how li:last-child { padding-bottom: 0; }
+  ol.how li:last-child::after { display: none; }
+  ol.how b { color: var(--ink); font-weight: 600; }
+
+  ul.gets { list-style: none; margin: 0 0 24px; padding: 0; }
+  ul.gets li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 0.93rem; line-height: 1.5; color: var(--ink);
+    padding: 8px 0; border-bottom: 1px dashed var(--line);
+  }
+  ul.gets li:last-child { border-bottom: none; }
+  ul.gets .ic { color: var(--green); margin-top: 2px; }
+
+  .svc-meta { display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px; }
+  .meta-row { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; line-height: 1.5; }
+  .meta-row .ic { color: var(--slate); margin-top: 2px; }
+  .meta-row b { display: block; font-family: var(--mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--slate); font-weight: 500; margin-bottom: 2px; }
+
+  .svc-foot {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; flex-wrap: wrap;
+    padding: 16px 32px; border-top: 1px solid var(--line); background: var(--paper-dim);
+  }
+  @media (max-width: 620px) { .svc-foot { padding: 16px 20px; } }
+  .chip-row { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+  .chip-label {
+    font-family: var(--mono); font-size: 0.68rem; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--slate); margin-right: 4px;
+  }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.78rem; padding: 4px 11px; border-radius: 999px;
+    border: 1px solid var(--line); background: #fff; color: var(--slate);
+  }
+  .chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; flex: none; }
+  .chip.full { color: var(--ink); border-color: rgba(255,138,30,0.5); background: var(--amber-soft); }
+  .chip.full::before { background: var(--amber); }
+  .chip.part::before { background: transparent; border: 2px solid var(--amber); }
+  .chip.none { opacity: 0.5; }
+  .chip.none::before { background: transparent; border: 1px dashed var(--slate); }
+
+  /* ---------- method ---------- */
+  .step-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 44px; }
+  @media (max-width: 900px) { .step-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .step-grid { grid-template-columns: 1fr; } }
+  .step {
+    padding: 22px 20px; border: 1px solid var(--line); border-radius: var(--radius);
+    background: var(--paper-dim);
+  }
+  .step .ic { color: var(--amber-deep); margin-bottom: 12px; }
+  .step .n { font-family: var(--mono); font-size: 0.7rem; color: var(--slate); display: block; margin-bottom: 6px; }
+  .step h3 { font-family: var(--disp); font-size: 1rem; margin: 0 0 8px; }
+  .step p { color: var(--slate); font-size: 0.88rem; line-height: 1.55; margin: 0; }
+
+  .matrix { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: #fff; }
+  .mrow { display: grid; grid-template-columns: 210px repeat(5, 1fr); align-items: stretch; }
+  .mrow + .mrow { border-top: 1px solid var(--line); }
+  .mrow.head { background: var(--paper-dim); }
+  .mlabel {
+    padding: 14px 18px; font-size: 0.92rem; font-weight: 600;
+    display: flex; align-items: center; gap: 9px; border-right: 1px solid var(--line);
+  }
+  .mrow.head .mlabel { font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--slate); font-weight: 500; }
+  .mlabel .ic { color: var(--amber-deep); }
+  .mhead {
+    padding: 14px 8px; text-align: center;
+    font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 0.04em; color: var(--slate);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .mcell {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 14px 8px; border-left: 1px solid var(--line);
+  }
+  .mstep { display: none; }
+  .mdot { width: 13px; height: 13px; border-radius: 50%; flex: none; }
+  .mcell.full .mdot { background: var(--amber); }
+  .mcell.part .mdot { background: transparent; border: 2.5px solid var(--amber); }
+  .mcell.none .mdot { background: transparent; border: 1.5px dashed rgba(91,97,114,0.5); }
+  .mnote { font-size: 0.78rem; color: var(--slate); }
+  @media (max-width: 820px) {
+    .mrow { grid-template-columns: 1fr; }
+    .mrow.head { display: none; }
+    .mlabel { border-right: none; border-bottom: 1px solid var(--line); background: var(--paper-dim); padding: 13px 16px; }
+    .mcell { justify-content: space-between; border-left: none; padding: 9px 16px; }
+    .mcell + .mcell { border-top: 1px dashed var(--line); }
+    .mstep { display: block; flex: 1; font-size: 0.88rem; color: var(--ink); }
+    .mcell.none .mstep { color: var(--slate); }
+  }
+  .legend {
+    display: flex; gap: 20px; flex-wrap: wrap; margin-top: 16px;
+    font-size: 0.8rem; color: var(--slate);
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .legend i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+  .legend .l-full { background: var(--amber); }
+  .legend .l-part { border: 2.5px solid var(--amber); }
+  .legend .l-none { border: 1.5px dashed rgba(91,97,114,0.5); }
 
   /* ---------- proof ---------- */
   .proof-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
-  @media (max-width: 980px) { .proof-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 680px) { .proof-grid { grid-template-columns: 1fr; } }
   .proof-card {
     background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 30px; display: flex; flex-direction: column;
+    padding: 28px; display: flex; flex-direction: column;
   }
+  .proof-top { display: flex; align-items: flex-start; gap: 13px; margin-bottom: 14px; }
+  .proof-top .ic-badge { width: 38px; height: 38px; border-radius: 10px; }
+  .proof-top .ic-badge .ic { width: 20px; height: 20px; }
   .proof-kicker {
-    font-family: var(--mono); font-size: 0.72rem; color: var(--slate);
-    text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px;
+    display: block; font-family: var(--mono); font-size: 0.71rem; color: var(--slate);
+    text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px;
   }
-  .proof-card h3 {
-    font-family: var(--disp); font-size: 1.2rem; margin: 0 0 12px; line-height: 1.3;
-  }
+  .proof-card h3 { font-family: var(--disp); font-size: 1.15rem; margin: 0; line-height: 1.3; }
   .proof-card p { color: var(--slate); font-size: 0.94rem; line-height: 1.62; margin: 0 0 16px; }
   .proof-stat {
     display: inline-flex; align-self: flex-start; align-items: baseline; gap: 6px;
-    background: var(--amber-soft); color: #8a4a05; padding: 6px 12px;
-    border-radius: 8px; font-weight: 700; font-size: 0.95rem; margin-bottom: 16px;
+    background: var(--amber-soft); color: var(--amber-deep); padding: 6px 12px;
+    border-radius: 8px; font-weight: 700; font-size: 0.95rem; margin-bottom: 14px;
   }
   .proof-stat small { font-weight: 500; font-size: 0.78rem; }
   .proof-link {
@@ -267,65 +373,95 @@
     font-weight: 600; font-size: 0.9rem; text-decoration: none; color: var(--ink);
     padding-top: 14px; border-top: 1px dashed var(--line);
   }
-  .proof-link.static {
-    color: var(--slate); font-weight: 500; cursor: default;
+  .proof-link:hover { color: var(--amber-deep); }
+  .proof-tag {
+    margin-top: auto; padding-top: 14px; border-top: 1px dashed var(--line);
+    font-family: var(--mono); font-size: 0.72rem; color: var(--slate);
+    text-transform: uppercase; letter-spacing: 0.05em;
   }
-  .proof-link.static:hover { color: var(--slate); }
-  .proof-link:not(.static):hover { color: var(--amber); }
 
-  /* ---------- how we work ---------- */
+  /* ---------- principles ---------- */
   .principle-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
   @media (max-width: 780px) { .principle-grid { grid-template-columns: 1fr; } }
-  .principle {
-    padding: 26px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-dim);
-  }
-  .principle .n { font-family: var(--mono); color: var(--amber); font-size: 0.8rem; margin-bottom: 10px; display: block; }
+  .principle { padding: 26px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper-dim); }
+  .principle .ic { color: var(--amber-deep); margin-bottom: 14px; }
   .principle h3 { font-family: var(--disp); font-size: 1.02rem; margin: 0 0 8px; }
   .principle p { color: var(--slate); font-size: 0.92rem; line-height: 1.6; margin: 0; }
 
-  /* ---------- engagement models ---------- */
-  .model-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  @media (max-width: 780px) { .model-grid { grid-template-columns: 1fr; } }
-  .model-card {
-    border: 1px solid var(--line); border-radius: var(--radius); padding: 26px;
-    background: #fff;
+  /* ---------- who ---------- */
+  .who {
+    display: flex; align-items: center; gap: 26px; flex-wrap: wrap;
+    padding: 30px 32px; border: 1px solid var(--line); border-radius: 18px; background: #fff;
   }
-  .model-card h3 { font-family: var(--disp); font-size: 1.05rem; margin: 0 0 10px; }
-  .model-card p { color: var(--slate); font-size: 0.92rem; line-height: 1.6; margin: 0; }
+  @media (max-width: 620px) { .who { padding: 24px 20px; gap: 18px; } }
+  .portrait {
+    width: 96px; height: 96px; border-radius: 50%; flex: none; overflow: hidden;
+    background: var(--amber-soft); color: var(--amber-deep);
+    display: flex; align-items: flex-end; justify-content: center;
+  }
+  .portrait img { width: 100%; height: 100%; object-fit: cover; }
+  .portrait svg { width: 82px; height: 82px; fill: currentColor; opacity: 0.55; }
+  .who-copy { flex: 1 1 320px; }
+  .who-copy h3 { font-family: var(--disp); font-size: 1.1rem; margin: 0 0 4px; }
+  .who-role { font-family: var(--mono); font-size: 0.73rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--slate); margin: 0 0 12px; }
+  .who-copy p { color: var(--slate); font-size: 0.95rem; line-height: 1.62; margin: 0; max-width: 58ch; }
 
   /* ---------- final CTA ---------- */
   .cta-band {
     background: var(--ink); color: var(--paper);
-    border-radius: 20px; padding: 56px 44px; text-align: center;
-    margin: 0 0 80px;
+    border-radius: 20px; padding: 54px 44px; text-align: center;
+    margin: 72px 0 80px;
   }
-  .cta-band h2 {
-    font-family: var(--disp); font-size: clamp(1.5rem, 3.4vw, 2.2rem);
-    margin: 0 0 14px; letter-spacing: -0.01em;
-  }
+  @media (max-width: 620px) { .cta-band { padding: 40px 24px; } }
+  .cta-band h2 { font-family: var(--disp); font-size: clamp(1.5rem, 3.4vw, 2.2rem); margin: 0 0 14px; letter-spacing: -0.01em; }
   .cta-band p { color: rgba(251,249,244,0.68); max-width: 48ch; margin: 0 auto 30px; line-height: 1.6; }
 
-  footer {
-    border-top: 1px solid var(--line); padding: 28px 0 40px;
-    font-size: 0.85rem; color: var(--slate);
-    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
-  }
+  footer { border-top: 1px solid var(--line); padding: 28px 0 40px; font-size: 0.85rem; color: var(--slate); }
+  .footer-inner { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
 </style>
 </head>
 <body>
 
+<!-- ===== icon sprite ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4.3-4.3"/></symbol>
+  <symbol id="i-fork" viewBox="0 0 24 24"><path d="M12 22v-6"/><path d="M12 16 6 10V6"/><path d="m12 16 6-6V6"/><circle cx="6" cy="4" r="2"/><circle cx="18" cy="4" r="2"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 8-4 4 4 4"/><path d="m16 8 4 4-4 4"/><path d="M13.5 5.5 10.5 18.5"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M3.5 18a8.5 8.5 0 1 1 17 0"/><path d="m12 18 4-5.5"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8v8l-9 5-9-5V8l9-5 9 5Z"/><path d="m3 8 9 5 9-5"/><path d="M12 13v8"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2.2 5.4-5.4 2.2 2.2-5.4 5.4-2.2Z"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M2.8 20a6.2 6.2 0 0 1 12.4 0"/><path d="M16.4 5.4a3.2 3.2 0 0 1 0 5.2"/><path d="M17.8 14.5A6.2 6.2 0 0 1 21.2 20"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m4 12.5 5 5L20 6.5"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.3l3.4 2"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12.6V4.5a1.5 1.5 0 0 1 1.5-1.5h8.1a1.5 1.5 0 0 1 1.06.44l6.9 6.9a1.5 1.5 0 0 1 0 2.12l-8.1 8.1a1.5 1.5 0 0 1-2.12 0l-6.9-6.9A1.5 1.5 0 0 1 3 12.6Z"/><circle cx="7.8" cy="7.8" r="1.3"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 3 7.5 3v5.6c0 4.6-3.1 8.2-7.5 9.4-4.4-1.2-7.5-4.8-7.5-9.4V6L12 3Z"/><path d="m9 12 2.1 2.1L15.3 10"/></symbol>
+  <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7"/><path d="M3 12.5h18"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13.2 2.5 4.5 14h6.4l-1.1 7.5L18.5 10h-6.4l1.1-7.5Z"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3v4.5a1 1 0 0 0 1 1h4.5"/><path d="M19.5 8.5V19a2 2 0 0 1-2 2h-11a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2H14l5.5 5.5Z"/><path d="M8.5 13.5h7M8.5 17h4.5"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><path d="m6.2 6.2 2.6 2.6M15.2 15.2l2.6 2.6M17.8 6.2 15.2 8.8M8.8 15.2l-2.6 2.6"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13"/><path d="m13 7 5 5-5 5"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10 9 9.5 7.7 9.3 7.2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3C4 15 3.6 13.5 3.6 12c0-4.6 3.8-8.4 8.4-8.4s8.4 3.8 8.4 8.4-3.8 8.3-8.4 8.3z"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="12" cy="8" r="4.4"/><path d="M12 14c-4.4 0-8 2.9-8 6.5V24h16v-3.5c0-3.6-3.6-6.5-8-6.5Z"/></symbol>
+</svg>
+
 <div class="topbar">
   <div class="wrap topbar-inner">
-    <img class="logo" src="logo_compact.png" alt="AxZ Technology">
+    <img class="logo" src="logo_compact.png" alt="AxZ Technology" width="170" height="44">
+    <nav class="topnav">
+      <a href="#servicos"><span data-pt>Serviços</span><span data-en>Services</span></a>
+      <a href="#metodo"><span data-pt>Método</span><span data-en>Method</span></a>
+      <a href="#casos"><span data-pt>Casos</span><span data-en>Cases</span></a>
+    </nav>
     <div class="topbar-actions">
       <div class="lang-switch" role="group" aria-label="Language">
-        <button type="button" id="btn-pt" class="active" onclick="setLang('pt')">PT-BR</button>
-        <button type="button" id="btn-en" onclick="setLang('en')">EN</button>
+        <button type="button" id="btn-pt" class="active" aria-pressed="true" onclick="setLang('pt')">PT-BR</button>
+        <button type="button" id="btn-en" aria-pressed="false" onclick="setLang('en')">EN</button>
       </div>
       <a class="btn-wa" href="https://wa.me/5516936180101" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10 9 9.5 7.7 9.3 7.2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3C4 15 3.6 13.5 3.6 12c0-4.6 3.8-8.4 8.4-8.4s8.4 3.8 8.4 8.4-3.8 8.3-8.4 8.3z"/></svg>
-        <span class="full" data-pt>WhatsApp</span>
-        <span class="full" data-en>WhatsApp</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+        <span class="full">WhatsApp</span>
       </a>
     </div>
   </div>
@@ -342,96 +478,492 @@
       <span data-en>You need AI <em>now</em>. Where to start?</span>
     </h1>
     <p class="lede">
-      <span data-pt>Do problema ao protótipo em dias. Sem enrolação, sem projeto de meses.</span>
-      <span data-en>From problem to prototype in days. No runaround, no months-long project.</span>
+      <span data-pt>Três formas de trabalhar comigo: <b>construir</b> uma solução com escopo e preço fechados, <b>mapear</b> onde está a maior oportunidade e executar junto, ou me ter <b>dentro do time</b> como direção técnica. Do problema ao protótipo em dias.</span>
+      <span data-en>Three ways to work with me: <b>build</b> a solution at fixed scope and price, <b>map</b> where the biggest opportunity is and execute on it together, or have me <b>inside your team</b> as technical leadership. From problem to prototype in days.</span>
     </p>
     <div class="hero-actions">
       <a class="btn-wa" href="https://wa.me/5516936180101" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10 9 9.5 7.7 9.3 7.2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3C4 15 3.6 13.5 3.6 12c0-4.6 3.8-8.4 8.4-8.4s8.4 3.8 8.4 8.4-3.8 8.3-8.4 8.3z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
         <span data-pt>Falar agora</span><span data-en>Talk now</span>
       </a>
       <a class="btn-wa ghost" href="#servicos">
-        <span data-pt>Ver serviços</span><span data-en>See services</span>
+        <span data-pt>Ver os três serviços</span><span data-en>See the three services</span>
+      </a>
+    </div>
+
+    <div class="doors">
+      <a class="door" href="#svc-build">
+        <svg class="ic" aria-hidden="true"><use href="#i-box"/></svg>
+        <span>
+          <span class="door-q" data-pt>“Já sei o que preciso construir.”</span>
+          <span class="door-q" data-en>“I already know what I need built.”</span>
+          <span class="door-a" data-pt>→ Escopo fechado</span>
+          <span class="door-a" data-en>→ Fixed-scope build</span>
+        </span>
+      </a>
+      <a class="door" href="#svc-consult">
+        <svg class="ic" aria-hidden="true"><use href="#i-compass"/></svg>
+        <span>
+          <span class="door-q" data-pt>“Sei que dá pra usar IA. Não sei onde.”</span>
+          <span class="door-q" data-en>“I know AI fits somewhere. Not where.”</span>
+          <span class="door-a" data-pt>→ Consultoria</span>
+          <span class="door-a" data-en>→ Advisory + delivery</span>
+        </span>
+      </a>
+      <a class="door" href="#svc-fractional">
+        <svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>
+        <span>
+          <span class="door-q" data-pt>“Preciso de alguém sênior no time.”</span>
+          <span class="door-q" data-en>“I need a senior hand on the team.”</span>
+          <span class="door-a" data-pt>→ Direção fracionada</span>
+          <span class="door-a" data-en>→ Fractional CTO</span>
+        </span>
       </a>
     </div>
   </div>
 </header>
 
-<div class="wrap">
-  <div class="build-panel">
-    <div class="build-copy">
-      <span class="build-tag" data-pt>Mais pedido</span>
-      <span class="build-tag" data-en>Most requested</span>
-      <h2><span data-pt>Da ideia ao sistema funcionando</span><span data-en>From idea to working system</span></h2>
-      <p>
-        <span data-pt>Depois do diagnóstico, a solução sai do papel rápido: protótipo em poucos dias, produto completo quando o caso pedir. Sem meses de projeto para ver a primeira tela.</span>
-        <span data-en>Once the problem is clear, the solution moves fast: a prototype in days, a full product when the case calls for it. No months-long project just to see the first screen.</span>
-      </p>
-      <a class="btn-wa" href="https://wa.me/5516936180101" target="_blank" rel="noopener">
-        <span data-pt>Me conte seu problema</span><span data-en>Describe your problem</span>
-      </a>
-    </div>
-    <div class="build-console">
-      <div class="console-line done"><span class="mark">✓</span> <span data-pt>Entender</span><span data-en>Understand</span></div>
-      <div class="console-line done"><span class="mark">✓</span> <span data-pt>Desenhar</span><span data-en>Design</span></div>
-      <div class="console-line active"><span class="mark"><span>●</span></span> <span data-pt>Construir</span><span data-en>Build</span></div>
-      <div class="console-line"><span class="mark"></span> <span data-pt>Rodar</span><span data-en>Run</span></div>
-      <div class="console-meta" data-pt>1 a 5 dias até o primeiro protótipo</div>
-      <div class="console-meta" data-en>1 to 5 days to first prototype</div>
-    </div>
-  </div>
-</div>
-
+<!--
+  ============================================================================
+  REVISAR ANTES DE PUBLICAR / VERIFY BEFORE PUBLISHING
+  Os números abaixo foram escritos como estrutura, não como compromisso.
+  Confirme (ou troque por faixas reais de preço, que convertem melhor):
+    · "1 a 5 dias até o protótipo"      — já era uma afirmação do site
+    · "semanas, não meses"              — prazo típico de escopo fechado
+    · "2 a 4 semanas" para o mapa       — prazo do diagnóstico
+    · "2 a 6 dias por mês"              — carga da direção fracionada
+  ============================================================================
+-->
 <section class="section" id="servicos">
   <div class="wrap">
     <div class="section-head">
       <span class="section-eyebrow" data-pt>Serviços</span>
       <span class="section-eyebrow" data-en>Services</span>
-      <h2><span data-pt>Cinco etapas, um só objetivo</span><span data-en>Five stages, one goal</span></h2>
-      <h3><span data-pt>Entre onde fizer sentido</span><span data-en>Start wherever makes sense</span></h3>
+      <h2><span data-pt>Três formas de trabalhar juntos</span><span data-en>Three ways to work together</span></h2>
+      <p>
+        <span data-pt>Escolha pela pergunta que você tem hoje, não pelo formato do contrato. Dá para começar por um e migrar para outro — muita gente entra pelo diagnóstico e continua na direção fracionada.</span>
+        <span data-en>Pick by the question you have today, not by the contract shape. You can start in one and move to another — plenty of clients come in through the diagnosis and stay on as fractional.</span>
+      </p>
     </div>
 
-    <div class="service-list">
-      <div class="service-row">
-        <h3><span data-pt>Entender</span><span data-en>Understand</span></h3>
-        <div class="bullets">
-          <span data-pt>Diagnóstico dos processos e das dores reais da empresa, entendendo cada problema antes de qualquer decisão.</span>
-          <span data-en>Diagnosis of the company's processes and real pain points, understanding each problem before any decision is made.</span>
+    <div class="svc-list">
+
+      <!-- ============ 1. FIXED SCOPE ============ -->
+      <article class="svc" id="svc-build">
+        <div class="svc-head">
+          <span class="ic-badge"><svg class="ic" aria-hidden="true"><use href="#i-box"/></svg></span>
+          <div>
+            <span class="svc-num">01</span>
+            <h3><span data-pt>Escopo fechado</span><span data-en>Fixed-scope build</span></h3>
+            <p class="svc-q">
+              <span data-pt>“Já sei o que preciso construir. Preciso de alguém que construa.”</span>
+              <span data-en>“I already know what I need built. I need someone to build it.”</span>
+            </p>
+            <p class="svc-sub">
+              <span data-pt>Discovery curto só para travar o escopo, e então mão na massa. Você recebe a coisa funcionando em produção — não um relatório sobre ela.</span>
+              <span data-en>A short discovery just to lock the scope, then hands on the keyboard. You get the thing running in production — not a report about it.</span>
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="service-row">
-        <h3><span data-pt>Decidir</span><span data-en>Decide</span></h3>
-        <div class="bullets">
-          <span data-pt>Escolha entre construir, comprar ou terceirizar. Separando o que é IA aplicável de verdade e o que é modismo.</span>
-          <span data-en>Choosing between building, buying, or outsourcing, while separating what's genuinely applicable AI from what's just hype.</span>
+
+        <div class="svc-body">
+          <div class="svc-col">
+            <span class="col-title" data-pt>Como funciona</span>
+            <span class="col-title" data-en>How it works</span>
+            <ol class="how">
+              <li>
+                <span data-pt><b>Chamada de 60 minutos.</b> Você me mostra o problema, o que já existe e o que não pode quebrar. Sem questionário de agência.</span>
+                <span data-en><b>A 60-minute call.</b> You show me the problem, what already exists and what can't break. No agency questionnaire.</span>
+              </li>
+              <li>
+                <span data-pt><b>Proposta em até 48h.</b> Escopo, arquitetura, prazo e preço fechados por escrito. Se eu achar que não vale construir, digo antes de mandar o orçamento.</span>
+                <span data-en><b>Proposal within 48h.</b> Scope, architecture, timeline and price fixed in writing. If I think it shouldn't be built, you hear that before the quote.</span>
+              </li>
+              <li>
+                <span data-pt><b>Protótipo navegável em 1 a 5 dias.</b> Você corrige a rota cedo, quando ainda é barato mudar de ideia.</span>
+                <span data-en><b>Clickable prototype in 1 to 5 days.</b> You correct course early, while changing your mind is still cheap.</span>
+              </li>
+              <li>
+                <span data-pt><b>Build até produção.</b> Integrações com os sistemas que você já usa, ajustes no fluxo real da equipe, e não no fluxo do slide.</span>
+                <span data-en><b>Build through to production.</b> Integrated with the systems you already run, tuned to the team's real workflow, not the one on the slide.</span>
+              </li>
+              <li>
+                <span data-pt><b>Entrega e repasse.</b> Código e infra no seu nome, documentação e uma sessão de handoff. Depois disso você não depende de mim.</span>
+                <span data-en><b>Handover.</b> Code and infra in your name, documentation and a handoff session. After that you don't depend on me.</span>
+              </li>
+            </ol>
+          </div>
+
+          <div class="svc-col">
+            <span class="col-title" data-pt>O que você recebe</span>
+            <span class="col-title" data-en>What you get</span>
+            <ul class="gets">
+              <li><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg><span data-pt>Sistema rodando em produção</span><span data-en>A system running in production</span></li>
+              <li><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg><span data-pt>Código e infraestrutura no seu nome</span><span data-en>Code and infrastructure in your name</span></li>
+              <li><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg><span data-pt>Documentação de operação</span><span data-en>Operating documentation</span></li>
+              <li><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg><span data-pt>Sessão de repasse com o time</span><span data-en>Handoff session with your team</span></li>
+            </ul>
+            <div class="svc-meta">
+              <div class="meta-row">
+                <svg class="ic ic-sm" aria-hidden="true"><use href="#i-clock"/></svg>
+                <span>
+                  <b data-pt>Prazo</b><b data-en>Timeline</b>
+                  <span data-pt>Semanas, não meses. Protótipo em 1 a 5 dias.</span>
+                  <span data-en>Weeks, not months. Prototype in 1 to 5 days.</span>
+                </span>
+              </div>
+              <div class="meta-row">
+                <svg class="ic ic-sm" aria-hidden="true"><use href="#i-tag"/></svg>
+                <span>
+                  <b data-pt>Preço</b><b data-en>Pricing</b>
+                  <span data-pt>Fechado antes de começar. Escopo novo, orçamento novo — nunca uma conta surpresa no fim.</span>
+                  <span data-en>Fixed before we start. New scope, new quote — never a surprise invoice at the end.</span>
+                </span>
+              </div>
+            </div>
+            <a class="btn-wa sm" href="https://wa.me/5516936180101" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+              <span data-pt>Descrever meu projeto</span><span data-en>Describe my project</span>
+            </a>
+          </div>
         </div>
-      </div>
-      <div class="service-row">
-        <h3><span data-pt>Desenhar</span><span data-en>Design</span></h3>
-        <div class="bullets">
-          <span data-pt>Arquitetura pensada para resolver, não IA encaixada à força. Base técnica sólida que sustenta o crescimento da solução.</span>
-          <span data-en>Architecture designed around the problem, not AI forced into it. A solid technical foundation the solution can grow on.</span>
+
+        <div class="svc-foot">
+          <div class="chip-row">
+            <span class="chip-label" data-pt>Etapas</span>
+            <span class="chip-label" data-en>Stages</span>
+            <span class="chip part"><span data-pt>Entender</span><span data-en>Understand</span></span>
+            <span class="chip none"><span data-pt>Decidir</span><span data-en>Decide</span></span>
+            <span class="chip full"><span data-pt>Desenhar</span><span data-en>Design</span></span>
+            <span class="chip full"><span data-pt>Construir</span><span data-en>Build</span></span>
+            <span class="chip part"><span data-pt>Rodar</span><span data-en>Run</span></span>
+          </div>
+          <a class="proof-link" href="#metodo" style="margin:0;padding:0;border:none">
+            <span data-pt>O que são as etapas</span><span data-en>What the stages mean</span>
+            <svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow"/></svg>
+          </a>
         </div>
-      </div>
-      <div class="service-row">
-        <h3><span data-pt>Construir</span><span data-en>Build</span></h3>
-        <div class="bullets">
-          <span data-pt>Do protótipo ao produto final, incluindo automações, integrações e aplicações com IA prontas para o dia a dia da equipe.</span>
-          <span data-en>From prototype to finished product, including automations, integrations, and AI applications ready for the team's daily use.</span>
+      </article>
+
+      <!-- ============ 2. ADVISORY ============ -->
+      <article class="svc" id="svc-consult">
+        <div class="svc-head">
+          <span class="ic-badge"><svg class="ic" aria-hidden="true"><use href="#i-compass"/></svg></span>
+          <div>
+            <span class="svc-num">02</span>
+            <h3><span data-pt>Consultoria</span><span data-en>Advisory + delivery</span></h3>
+            <p class="svc-q">
+              <span data-pt>“Sei que dá pra usar IA aqui. Não sei onde está o maior ganho.”</span>
+              <span data-en>“I know AI fits here somewhere. I don't know where the real gain is.”</span>
+            </p>
+            <p class="svc-sub">
+              <span data-pt>Eu entro na operação, mapeio os processos e volto com as oportunidades ordenadas por impacto e esforço. Aí a gente ataca a primeira — e a próxima. Escopo aberto, relação de longo prazo, várias entregas.</span>
+              <span data-en>I get inside the operation, map the processes and come back with the opportunities ranked by impact and effort. Then we attack the first one — and the next. Open scope, long-term relationship, multiple deliveries.</span>
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="service-row">
-        <h3><span data-pt>Rodar</span><span data-en>Run</span></h3>
-        <div class="bullets">
-          <span data-pt>Solução construída para funcionar sem dependência contínua. Direção técnica fracionada disponível para quem quiser acompanhamento.</span>
-          <span data-en>Built to run without ongoing dependency. Fractional technical leadership available for those who want continued direction.</span>
+
+        <div class="svc-body">
+          <div class="svc-col">
+            <span class="col-title" data-pt>Como funciona</span>
+            <span class="col-title" data-en>How it works</span>
+            <ol class="how">
+              <li>
+                <span data-pt><b>Imersão.</b> Conversas com quem opera o processo, não só com a diretoria. É no chão da operação que aparecem as horas desperdiçadas.</span>
+                <span data-en><b>Immersion.</b> Conversations with the people who run the process, not only with the leadership. Wasted hours show up on the floor, not in the deck.</span>
+              </li>
+              <li>
+                <span data-pt><b>Mapa de oportunidades.</b> Cada uma com impacto estimado, esforço, risco e uma recomendação explícita: construir, comprar ou não fazer.</span>
+                <span data-en><b>Opportunity map.</b> Each one with estimated impact, effort, risk and an explicit call: build, buy, or don't do it.</span>
+              </li>
+              <li>
+                <span data-pt><b>Priorização junto com você.</b> O mapa é insumo, a decisão é sua. Saímos da reunião com a primeira frente escolhida e escopada.</span>
+                <span data-en><b>We prioritise together.</b> The map is input, the decision is yours. We leave the meeting with the first track chosen and scoped.</span>
+              </li>
+              <li>
+                <span data-pt><b>Ciclos de execução.</b> Cada ciclo tem escopo e prazo definidos, entrega alguma coisa em produção e mede o resultado.</span>
+                <span data-en><b>Delivery cycles.</b> Each cycle has a defined scope and deadline, ships something into production and measures the result.</span>
+              </li>
+              <li>
+                <span data-pt><b>O mapa é atualizado.</b> O que aprendemos no ciclo reordena a fila. Você renova enquanto fizer sentido — sem contrato longo amarrando.</span>
+                <span data-en><b>The map gets updated.</b> What we learn in a cycle reorders the queue. You renew for as long as it makes sense — no long lock-in contract.</span>
+              </li>
+            </ol>
+          </div>
+
+          <div class="svc-col">
+            <span class="col-title" data-pt>O que você recebe</span>
+            <span class="col-title" data-en>What you get</span>
+            <ul class="gets">
+              <li><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg><span data-pt>Mapa de oportunidades priorizado</span><span data-en>A prioritised opportunity map</span></li>
+              <li><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg><span data-pt>Recomendação construir / comprar / não fazer</span><span data-en>A build / buy / don't-do call on each</span></li>
+              <li><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg><span data-pt>Entregas em produção a cada ciclo</span><span data-en>Production deliveries every cycle</span></li>
+              <li><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg><span data-pt>Métrica de antes e depois por frente</span><span data-en>Before/after metrics per track</span></li>
+            </ul>
+            <div class="svc-meta">
+              <div class="meta-row">
+                <svg class="ic ic-sm" aria-hidden="true"><use href="#i-clock"/></svg>
+                <span>
+                  <b data-pt>Prazo</b><b data-en>Timeline</b>
+                  <span data-pt>Primeiro mapa em 2 a 4 semanas. Depois, ciclos contínuos.</span>
+                  <span data-en>First map in 2 to 4 weeks. Then continuous cycles.</span>
+                </span>
+              </div>
+              <div class="meta-row">
+                <svg class="ic ic-sm" aria-hidden="true"><use href="#i-tag"/></svg>
+                <span>
+                  <b data-pt>Preço</b><b data-en>Pricing</b>
+                  <span data-pt>Diagnóstico com preço fechado. Execução cobrada por ciclo, aprovada uma de cada vez.</span>
+                  <span data-en>Fixed price for the diagnosis. Delivery billed per cycle, approved one at a time.</span>
+                </span>
+              </div>
+            </div>
+            <a class="btn-wa sm" href="https://wa.me/5516936180101" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+              <span data-pt>Marcar um diagnóstico</span><span data-en>Book a diagnosis</span>
+            </a>
+          </div>
         </div>
-      </div>
+
+        <div class="svc-foot">
+          <div class="chip-row">
+            <span class="chip-label" data-pt>Etapas</span>
+            <span class="chip-label" data-en>Stages</span>
+            <span class="chip full"><span data-pt>Entender</span><span data-en>Understand</span></span>
+            <span class="chip full"><span data-pt>Decidir</span><span data-en>Decide</span></span>
+            <span class="chip full"><span data-pt>Desenhar</span><span data-en>Design</span></span>
+            <span class="chip full"><span data-pt>Construir</span><span data-en>Build</span></span>
+            <span class="chip part"><span data-pt>Rodar</span><span data-en>Run</span></span>
+          </div>
+          <a class="proof-link" href="#metodo" style="margin:0;padding:0;border:none">
+            <span data-pt>O que são as etapas</span><span data-en>What the stages mean</span>
+            <svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- ============ 3. FRACTIONAL ============ -->
+      <article class="svc" id="svc-fractional">
+        <div class="svc-head">
+          <span class="ic-badge"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg></span>
+          <div>
+            <span class="svc-num">03</span>
+            <h3><span data-pt>Direção técnica fracionada</span><span data-en>Fractional CTO</span></h3>
+            <p class="svc-q">
+              <span data-pt>“Preciso de alguém sênior dentro do time, sem contratar um CTO.”</span>
+              <span data-en>“I need a senior hand inside the team, without hiring a CTO.”</span>
+            </p>
+            <p class="svc-sub">
+              <span data-pt>Alguns dias por mês dentro da sua operação: decisão técnica, revisão do que o time está construindo, escolha de fornecedor e desbloqueio do que travou. O formato mais solto dos três — a pauta muda conforme o mês.</span>
+              <span data-en>A few days a month inside your operation: technical decisions, review of what the team is building, vendor choices, and unblocking whatever is stuck. The loosest of the three — the agenda shifts month to month.</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="svc-body">
+          <div class="svc-col">
+            <span class="col-title" data-pt>Como funciona</span>
+            <span class="col-title" data-en>How it works</span>
+            <ol class="how">
+              <li>
+                <span data-pt><b>Combinamos a carga.</b> Dias fixos por mês, mais um canal aberto para o que não pode esperar até a próxima reunião.</span>
+                <span data-en><b>We agree the load.</b> Fixed days per month, plus an open channel for what can't wait for the next meeting.</span>
+              </li>
+              <li>
+                <span data-pt><b>Entro nos rituais do time.</b> Revisão de arquitetura, code review, planejamento e as decisões que ninguém quer tomar sozinho.</span>
+                <span data-en><b>I join the team's rituals.</b> Architecture review, code review, planning, and the decisions nobody wants to make alone.</span>
+              </li>
+              <li>
+                <span data-pt><b>Ajudo nas decisões caras.</b> Contratação técnica, escolha de fornecedor, o que vale construir e o que vale assinar.</span>
+                <span data-en><b>I help with the expensive calls.</b> Technical hiring, vendor selection, what's worth building versus what's worth subscribing to.</span>
+              </li>
+              <li>
+                <span data-pt><b>Coloco a mão no código</b> quando é mais rápido resolver do que explicar. Direção fracionada não é só reunião.</span>
+                <span data-en><b>I write code myself</b> when solving is faster than explaining. Fractional leadership isn't only meetings.</span>
+              </li>
+              <li>
+                <span data-pt><b>Você renova mês a mês.</b> Sem multa, sem lock-in. Se o time amadureceu e não precisa mais, ótimo — esse é o objetivo.</span>
+                <span data-en><b>You renew monthly.</b> No penalty, no lock-in. If the team has matured and no longer needs it, good — that's the goal.</span>
+              </li>
+            </ol>
+          </div>
+
+          <div class="svc-col">
+            <span class="col-title" data-pt>O que você recebe</span>
+            <span class="col-title" data-en>What you get</span>
+            <ul class="gets">
+              <li><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg><span data-pt>Dias combinados por mês, na agenda</span><span data-en>Agreed days per month, on the calendar</span></li>
+              <li><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg><span data-pt>Canal direto para urgência</span><span data-en>A direct channel for urgent calls</span></li>
+              <li><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg><span data-pt>Revisão de arquitetura e de fornecedores</span><span data-en>Architecture and vendor review</span></li>
+              <li><svg class="ic ic-sm" aria-hidden="true"><use href="#i-check"/></svg><span data-pt>Apoio em contratação técnica</span><span data-en>Support on technical hiring</span></li>
+            </ul>
+            <div class="svc-meta">
+              <div class="meta-row">
+                <svg class="ic ic-sm" aria-hidden="true"><use href="#i-clock"/></svg>
+                <span>
+                  <b data-pt>Carga</b><b data-en>Load</b>
+                  <span data-pt>Tipicamente 2 a 6 dias por mês, ajustável.</span>
+                  <span data-en>Typically 2 to 6 days a month, adjustable.</span>
+                </span>
+              </div>
+              <div class="meta-row">
+                <svg class="ic ic-sm" aria-hidden="true"><use href="#i-tag"/></svg>
+                <span>
+                  <b data-pt>Preço</b><b data-en>Pricing</b>
+                  <span data-pt>Mensalidade pela carga combinada. Renovação mensal, sem multa de saída.</span>
+                  <span data-en>A monthly retainer for the agreed load. Monthly renewal, no exit fee.</span>
+                </span>
+              </div>
+            </div>
+            <a class="btn-wa sm" href="https://wa.me/5516936180101" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+              <span data-pt>Falar sobre o time</span><span data-en>Talk about my team</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="svc-foot">
+          <div class="chip-row">
+            <span class="chip-label" data-pt>Etapas</span>
+            <span class="chip-label" data-en>Stages</span>
+            <span class="chip full"><span data-pt>Entender</span><span data-en>Understand</span></span>
+            <span class="chip full"><span data-pt>Decidir</span><span data-en>Decide</span></span>
+            <span class="chip full"><span data-pt>Desenhar</span><span data-en>Design</span></span>
+            <span class="chip part"><span data-pt>Construir</span><span data-en>Build</span></span>
+            <span class="chip full"><span data-pt>Rodar</span><span data-en>Run</span></span>
+          </div>
+          <a class="proof-link" href="#metodo" style="margin:0;padding:0;border:none">
+            <span data-pt>O que são as etapas</span><span data-en>What the stages mean</span>
+            <svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow"/></svg>
+          </a>
+        </div>
+      </article>
+
     </div>
   </div>
 </section>
 
-<section class="section">
+<!-- ===== METHOD ===== -->
+<section class="section" id="metodo">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-eyebrow" data-pt>Método</span>
+      <span class="section-eyebrow" data-en>Method</span>
+      <h2>
+        <span data-pt>Cinco etapas. Nem todo trabalho usa as cinco.</span>
+        <span data-en>Five stages. Not every engagement uses all five.</span>
+      </h2>
+      <p>
+        <span data-pt>Esse é o vocabulário que uso para falar de qualquer projeto. O que muda entre os serviços é onde você entra e onde a gente para.</span>
+        <span data-en>This is the vocabulary I use for any engagement. What changes between services is where you come in and where we stop.</span>
+      </p>
+    </div>
+
+    <div class="step-grid">
+      <div class="step">
+        <svg class="ic" aria-hidden="true"><use href="#i-search"/></svg>
+        <span class="n">01</span>
+        <h3><span data-pt>Entender</span><span data-en>Understand</span></h3>
+        <p>
+          <span data-pt>Diagnóstico dos processos e das dores reais, antes de qualquer decisão de tecnologia.</span>
+          <span data-en>Diagnosis of processes and real pain points, before any technology decision.</span>
+        </p>
+      </div>
+      <div class="step">
+        <svg class="ic" aria-hidden="true"><use href="#i-fork"/></svg>
+        <span class="n">02</span>
+        <h3><span data-pt>Decidir</span><span data-en>Decide</span></h3>
+        <p>
+          <span data-pt>Construir, comprar ou terceirizar. Separando IA aplicável de verdade do que é modismo.</span>
+          <span data-en>Build, buy or outsource. Separating genuinely applicable AI from hype.</span>
+        </p>
+      </div>
+      <div class="step">
+        <svg class="ic" aria-hidden="true"><use href="#i-layers"/></svg>
+        <span class="n">03</span>
+        <h3><span data-pt>Desenhar</span><span data-en>Design</span></h3>
+        <p>
+          <span data-pt>Arquitetura pensada para resolver o problema, não IA encaixada à força.</span>
+          <span data-en>Architecture designed around the problem, not AI forced into it.</span>
+        </p>
+      </div>
+      <div class="step">
+        <svg class="ic" aria-hidden="true"><use href="#i-code"/></svg>
+        <span class="n">04</span>
+        <h3><span data-pt>Construir</span><span data-en>Build</span></h3>
+        <p>
+          <span data-pt>Do protótipo ao produto: automações, integrações e aplicações prontas para o dia a dia.</span>
+          <span data-en>Prototype to product: automations, integrations and apps ready for daily use.</span>
+        </p>
+      </div>
+      <div class="step">
+        <svg class="ic" aria-hidden="true"><use href="#i-gauge"/></svg>
+        <span class="n">05</span>
+        <h3><span data-pt>Rodar</span><span data-en>Run</span></h3>
+        <p>
+          <span data-pt>Operar, medir e evoluir — com acompanhamento contínuo para quem quiser.</span>
+          <span data-en>Operate, measure and evolve — with ongoing support for those who want it.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="matrix">
+      <div class="mrow head">
+        <div class="mlabel"><span data-pt>Serviço</span><span data-en>Service</span></div>
+        <div class="mhead"><span data-pt>Entender</span><span data-en>Understand</span></div>
+        <div class="mhead"><span data-pt>Decidir</span><span data-en>Decide</span></div>
+        <div class="mhead"><span data-pt>Desenhar</span><span data-en>Design</span></div>
+        <div class="mhead"><span data-pt>Construir</span><span data-en>Build</span></div>
+        <div class="mhead"><span data-pt>Rodar</span><span data-en>Run</span></div>
+      </div>
+
+      <div class="mrow">
+        <div class="mlabel">
+          <svg class="ic ic-sm" aria-hidden="true"><use href="#i-box"/></svg>
+          <span data-pt>Escopo fechado</span><span data-en>Fixed-scope build</span>
+        </div>
+        <div class="mcell part"><span class="mstep" data-pt>Entender — discovery curto</span><span class="mstep" data-en>Understand — short discovery</span><span class="mdot"></span></div>
+        <div class="mcell none"><span class="mstep" data-pt>Decidir — você já decidiu</span><span class="mstep" data-en>Decide — you already did</span><span class="mdot"></span></div>
+        <div class="mcell full"><span class="mstep" data-pt>Desenhar</span><span class="mstep" data-en>Design</span><span class="mdot"></span></div>
+        <div class="mcell full"><span class="mstep" data-pt>Construir</span><span class="mstep" data-en>Build</span><span class="mdot"></span></div>
+        <div class="mcell part"><span class="mstep" data-pt>Rodar — só o repasse</span><span class="mstep" data-en>Run — handoff only</span><span class="mdot"></span></div>
+      </div>
+
+      <div class="mrow">
+        <div class="mlabel">
+          <svg class="ic ic-sm" aria-hidden="true"><use href="#i-compass"/></svg>
+          <span data-pt>Consultoria</span><span data-en>Advisory + delivery</span>
+        </div>
+        <div class="mcell full"><span class="mstep" data-pt>Entender — é o ponto de partida</span><span class="mstep" data-en>Understand — the starting point</span><span class="mdot"></span></div>
+        <div class="mcell full"><span class="mstep" data-pt>Decidir</span><span class="mstep" data-en>Decide</span><span class="mdot"></span></div>
+        <div class="mcell full"><span class="mstep" data-pt>Desenhar</span><span class="mstep" data-en>Design</span><span class="mdot"></span></div>
+        <div class="mcell full"><span class="mstep" data-pt>Construir — por ciclo</span><span class="mstep" data-en>Build — per cycle</span><span class="mdot"></span></div>
+        <div class="mcell part"><span class="mstep" data-pt>Rodar — enquanto durar a relação</span><span class="mstep" data-en>Run — while the engagement lasts</span><span class="mdot"></span></div>
+      </div>
+
+      <div class="mrow">
+        <div class="mlabel">
+          <svg class="ic ic-sm" aria-hidden="true"><use href="#i-users"/></svg>
+          <span data-pt>Direção fracionada</span><span data-en>Fractional CTO</span>
+        </div>
+        <div class="mcell full"><span class="mstep" data-pt>Entender — contínuo</span><span class="mstep" data-en>Understand — continuous</span><span class="mdot"></span></div>
+        <div class="mcell full"><span class="mstep" data-pt>Decidir</span><span class="mstep" data-en>Decide</span><span class="mdot"></span></div>
+        <div class="mcell full"><span class="mstep" data-pt>Desenhar</span><span class="mstep" data-en>Design</span><span class="mdot"></span></div>
+        <div class="mcell part"><span class="mstep" data-pt>Construir — o time constrói</span><span class="mstep" data-en>Build — your team builds</span><span class="mdot"></span></div>
+        <div class="mcell full"><span class="mstep" data-pt>Rodar</span><span class="mstep" data-en>Run</span><span class="mdot"></span></div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <span><i class="l-full"></i><span data-pt>Faz parte do serviço</span><span data-en>Part of the service</span></span>
+      <span><i class="l-part"></i><span data-pt>Parcial</span><span data-en>Partial</span></span>
+      <span><i class="l-none"></i><span data-pt>Fora do escopo</span><span data-en>Out of scope</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CASES ===== -->
+<section class="section" id="casos">
   <div class="wrap">
     <div class="section-head">
       <span class="section-eyebrow" data-pt>Casos</span>
@@ -441,64 +973,86 @@
 
     <div class="proof-grid">
       <div class="proof-card">
-        <div class="proof-kicker" data-pt>Grafiara · Gráfica</div>
-        <div class="proof-kicker" data-en>Grafiara · Printing</div>
-        <h3><span data-pt>Otimizador de anúncios</span><span data-en>Ad optimizer</span></h3>
+        <div class="proof-top">
+          <span class="ic-badge"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg></span>
+          <div>
+            <span class="proof-kicker" data-pt>Grafiara · Gráfica</span>
+            <span class="proof-kicker" data-en>Grafiara · Printing</span>
+            <h3><span data-pt>Otimizador de anúncios</span><span data-en>Ad optimizer</span></h3>
+          </div>
+        </div>
         <span class="proof-stat">1 <small data-pt>dia até o protótipo</small><small data-en>day to prototype</small></span>
         <p>
           <span data-pt>Lê fotos, avaliações e perguntas do anúncio. Gera fotos, vídeos e copy profissional, com o usuário confirmando cada etapa.</span>
-          <span data-en>Reads an ad's photos, reviews, and Q&A. Generates professional photos, video, and copy, with the user confirming each step.</span>
+          <span data-en>Reads an ad's photos, reviews, and Q&amp;A. Generates professional photos, video, and copy, with the user confirming each step.</span>
         </p>
         <a class="proof-link" href="https://meli-pdp.vercel.app/" target="_blank" rel="noopener">
-          <span data-pt>Ver demo →</span><span data-en>See demo →</span>
+          <span data-pt>Ver demo</span><span data-en>See demo</span>
+          <svg class="ic ic-sm" aria-hidden="true"><use href="#i-arrow"/></svg>
         </a>
       </div>
 
       <div class="proof-card">
-        <div class="proof-kicker" data-pt>Diagnóstico por imagem · Saúde</div>
-        <div class="proof-kicker" data-en>Diagnostic imaging · Healthcare</div>
-        <h3><span data-pt>Consultoria contínua de inovação</span><span data-en>Ongoing innovation consulting</span></h3>
+        <div class="proof-top">
+          <span class="ic-badge"><svg class="ic" aria-hidden="true"><use href="#i-compass"/></svg></span>
+          <div>
+            <span class="proof-kicker" data-pt>Diagnóstico por imagem · Saúde</span>
+            <span class="proof-kicker" data-en>Diagnostic imaging · Healthcare</span>
+            <h3><span data-pt>Consultoria contínua de inovação</span><span data-en>Ongoing innovation consulting</span></h3>
+          </div>
+        </div>
         <span class="proof-stat">13 <small data-pt>meses de atuação</small><small data-en>months engaged</small></span>
         <p>
           <span data-pt>Estratégia, direção de TI e automação de processos financeiros críticos lado a lado. Resultado: drástica redução de erros operacionais.</span>
           <span data-en>Strategy, IT direction, and automation of critical financial processes, side by side. Result: a drastic drop in operational errors.</span>
         </p>
-        <!-- <a class="proof-link static">
-          <span data-pt>Detalhes sob NDA</span><span data-en>Details under NDA</span>
-        </a> -->
+        <div class="proof-tag">
+          <span data-pt>Consultoria + direção fracionada</span>
+          <span data-en>Advisory + fractional CTO</span>
+        </div>
       </div>
 
       <div class="proof-card">
-        <div class="proof-kicker" data-pt>Saúde · Faturamento regulatório</div>
-        <div class="proof-kicker" data-en>Healthcare · Regulatory billing</div>
-        <h3><span data-pt>Extração de dados não estruturados</span><span data-en>Unstructured data extraction</span></h3>
+        <div class="proof-top">
+          <span class="ic-badge"><svg class="ic" aria-hidden="true"><use href="#i-doc"/></svg></span>
+          <div>
+            <span class="proof-kicker" data-pt>Saúde · Faturamento regulatório</span>
+            <span class="proof-kicker" data-en>Healthcare · Regulatory billing</span>
+            <h3><span data-pt>Extração de dados não estruturados</span><span data-en>Unstructured data extraction</span></h3>
+          </div>
+        </div>
         <span class="proof-stat">~10 <small data-pt>contratações evitadas</small><small data-en>hires avoided</small></span>
         <p>
           <span data-pt>Faturamento travado havia meses, dezenas de milhares de itens por mês em documentos escaneados sem padrão. Automação resolveu com 1 pessoa cuidando das exceções.</span>
           <span data-en>Billing stuck for months, tens of thousands of items a month in non-standard scanned documents. Automated down to 1 person handling exceptions.</span>
         </p>
-        <!-- <a class="proof-link static">
-          <span data-pt>Detalhes sob NDA</span><span data-en>Details under NDA</span>
-        </a> -->
+        <div class="proof-tag">
+          <span data-pt>Escopo fechado</span><span data-en>Fixed-scope build</span>
+        </div>
       </div>
 
       <div class="proof-card">
-        <div class="proof-kicker" data-pt>Catho × MediaMonks</div>
-        <div class="proof-kicker" data-en>Catho × MediaMonks</div>
-        <h3><span data-pt>Assistente de currículo por voz</span><span data-en>Voice-based résumé assistant</span></h3>
+        <div class="proof-top">
+          <span class="ic-badge"><svg class="ic" aria-hidden="true"><use href="#i-mic"/></svg></span>
+          <div>
+            <span class="proof-kicker">Catho × MediaMonks</span>
+            <h3><span data-pt>Assistente de currículo por voz</span><span data-en>Voice-based résumé assistant</span></h3>
+          </div>
+        </div>
         <span class="proof-stat"><span data-pt>IA para inclusão</span><span data-en>AI for inclusion</span></span>
         <p>
           <span data-pt>Chatbot por voz para ajudar pessoas analfabetas a montar currículo e voltar ao mercado de trabalho, para a maior plataforma de empregos do Brasil.</span>
           <span data-en>Voice chatbot to help illiterate jobseekers build a résumé and re-enter the workforce, for Brazil's largest job platform.</span>
         </p>
-        <!-- <a class="proof-link static">
-          <span data-pt>Desenvolvimento entregue</span><span data-en>Development delivered</span>
-        </a> -->
+        <div class="proof-tag">
+          <span data-pt>Escopo fechado</span><span data-en>Fixed-scope build</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ===== PRINCIPLES ===== -->
 <section class="section">
   <div class="wrap">
     <div class="section-head">
@@ -508,43 +1062,38 @@
     </div>
     <div class="principle-grid">
       <div class="principle">
-        <span class="n">01</span>
+        <svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg>
         <h3><span data-pt>Diagnóstico honesto</span><span data-en>Honest diagnosis</span></h3>
         <p><span data-pt>Se a resposta certa é não construir, ela vem antes do orçamento.</span><span data-en>If the right answer is not to build, it comes before the budget.</span></p>
       </div>
       <div class="principle">
-        <span class="n">02</span>
+        <svg class="ic" aria-hidden="true"><use href="#i-briefcase"/></svg>
         <h3><span data-pt>Negócio antes da tecnologia</span><span data-en>Business before tech</span></h3>
         <p><span data-pt>Toda solução considera processo e pessoas, não só código.</span><span data-en>Every solution accounts for process and people, not just code.</span></p>
       </div>
       <div class="principle">
-        <span class="n">03</span>
+        <svg class="ic" aria-hidden="true"><use href="#i-bolt"/></svg>
         <h3><span data-pt>Ritmo sem desperdício</span><span data-en>Pace without waste</span></h3>
         <p><span data-pt>Entrega rápida, sem cobrar por hora ociosa ou etapa que não move o resultado.</span><span data-en>Fast delivery, with no billing for idle hours or steps that don't move the result forward.</span></p>
       </div>
     </div>
-  </div>
-</section>
 
-<section class="section">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="section-eyebrow" data-pt>Formatos</span>
-      <span class="section-eyebrow" data-en>Engagement models</span>
-      <h2><span data-pt>Contratos flexíveis</span><span data-en>Flexible engagement</span></h2>
-    </div>
-    <div class="model-grid">
-      <div class="model-card">
-        <h3><span data-pt>Escopo fechado</span><span data-en>Fixed-scope</span></h3>
-        <p><span data-pt>Uma solução específica, preço fechado.</span><span data-en>A specific solution, fixed price.</span></p>
-      </div>
-      <div class="model-card">
-        <h3><span data-pt>Fracionado</span><span data-en>Fractional</span></h3>
-        <p><span data-pt>Liderança técnica contínua, mês a mês.</span><span data-en>Ongoing technical leadership, monthly.</span></p>
-      </div>
-      <div class="model-card">
-        <h3><span data-pt>Consultoria</span><span data-en>Advisory</span></h3>
-        <p><span data-pt>Uma resposta clara, sem construir nada.</span><span data-en>A clear answer, no build.</span></p>
+    <!--
+      Troque o placeholder abaixo por uma foto real:
+      <div class="portrait"><img src="andre.jpg" alt="André" width="96" height="96"></div>
+      Uma foto de rosto costuma ser o maior ganho de conversão numa página de
+      consultoria individual. Confirme também o cargo antes de publicar.
+    -->
+    <div class="who" style="margin-top:26px">
+      <div class="portrait"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-person"/></svg></div>
+      <div class="who-copy">
+        <h3>André</h3>
+        <p class="who-role" data-pt>AxZ Tecnologia</p>
+        <p class="who-role" data-en>AxZ Technology</p>
+        <p>
+          <span data-pt>A AxZ é uma operação enxuta de propósito: quem faz o diagnóstico é quem escreve o código. Você não vai falar com um vendedor e depois receber um time júnior — em qualquer um dos três serviços, é comigo que você trata.</span>
+          <span data-en>AxZ is deliberately a lean operation: the person who runs the diagnosis is the person who writes the code. You won't talk to a salesperson and then get handed a junior team — in all three services, you deal with me.</span>
+        </p>
       </div>
     </div>
   </div>
@@ -553,34 +1102,36 @@
 <div class="wrap">
   <div class="cta-band">
     <h2><span data-pt>Vamos conversar?</span><span data-en>Let's talk</span></h2>
-    <p><span data-pt>Quero ouvir seu problema.</span><span data-en>I want to hear your problem.</span></p>
+    <p>
+      <span data-pt>Me conte o problema. Se eu não for a pessoa certa, eu digo na primeira conversa.</span>
+      <span data-en>Tell me the problem. If I'm not the right person for it, you'll hear that in the first call.</span>
+    </p>
     <a class="btn-wa" href="https://wa.me/5516936180101" target="_blank" rel="noopener" style="background:var(--amber); color:var(--ink);">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.6.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5C10 9 9.5 7.7 9.3 7.2c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.4c1.4.8 3.1 1.2 4.8 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.3c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3C4 15 3.6 13.5 3.6 12c0-4.6 3.8-8.4 8.4-8.4s8.4 3.8 8.4 8.4-3.8 8.3-8.4 8.3z"/></svg>
-      <span data-pt>+55 (16) 93618-0101</span><span data-en>+55 (16) 93618-0101</span>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-wa"/></svg>
+      <span>+55 (16) 93618-0101</span>
     </a>
   </div>
 </div>
 
 <footer>
-  <div class="wrap" style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:10px;">
+  <div class="wrap footer-inner">
     <span>AxZ Tecnologia LTDA © 2026</span>
     <span>andre@axz.technology · +55 (16) 93618-0101</span>
   </div>
 </footer>
 
 <script>
-  function setLang(lang) {
-    document.documentElement.lang = lang === 'en' ? 'en' : 'pt-BR';
-    document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
-    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
-    try { localStorage.setItem('axz-lang', lang); } catch(e) {}
+  function setLang(lang, persist) {
+    var en = lang === 'en';
+    document.documentElement.lang = en ? 'en' : 'pt-BR';
+    var pt = document.getElementById('btn-pt'), be = document.getElementById('btn-en');
+    pt.classList.toggle('active', !en); pt.setAttribute('aria-pressed', String(!en));
+    be.classList.toggle('active', en);  be.setAttribute('aria-pressed', String(en));
+    if (persist !== false) { try { localStorage.setItem('axz-lang', lang); } catch (e) {} }
   }
-  (function() {
-    try {
-      var saved = localStorage.getItem('axz-lang');
-      if (saved === 'en') setLang('en');
-    } catch(e) {}
-  })();
+  // <html lang> was already set by the inline <head> script, before first paint.
+  // Sync the buttons to it without writing a preference the visitor never chose.
+  setLang(document.documentElement.lang === 'en' ? 'en' : 'pt', false);
 </script>
 
 </body>
